@@ -1,0 +1,72 @@
+/* Genel Sıfırlama */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    font-family: sans-serif;
+    overflow-x: hidden; /* Sağa sola titremeyi engeller */
+    overflow-y: auto;   /* Yukarı aşağı dikey kaydırmayı açar */
+}
+
+/* Ana Menü Kapsayıcısı */
+.menu-container {
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Sayfa Ayarları ve Yumuşak Geçiş Animasyonu */
+.menu-page {
+    width: 100%;
+    position: absolute; /* Aktif olmayan sayfalar arkada üst üste dursun */
+    top: 0;
+    left: 0;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* AKTİF SAYFA - Dikey Kaydırma Kilidini Açan Sihirli Dokunuş */
+.menu-page.active {
+    display: block;
+    opacity: 1;
+    position: relative; /* Sayfa aktifleştiğinde yüksekliği görsele göre uzar ve aşağı kayar */
+}
+
+/* Arka Plan Görselleri */
+.menu-bg {
+    width: 100%;
+    height: auto; /* Görselin oranını bozmaz, dikeyde ne kadar uzunsa aşağı doğru uzatır */
+    display: block;
+}
+
+/* Kategori Tıklama Butonları */
+.btn-kategori {
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* Geri Dönüş Butonu */
+.btn-geri {
+    position: absolute;
+    top: 1.5%;
+    left: 2%;
+    width: 20%;
+    height: 8%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
