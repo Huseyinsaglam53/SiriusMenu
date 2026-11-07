@@ -125,7 +125,7 @@ body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.l
 <div><i>✦</i><b>Doğal</b><span>Özenle seçilmiş, doğal ürünler</span></div>
 <div><i>✦</i><b>Taze</b><span>Mevsiminde, sınırlı miktarda</span></div>
 </div>
-<div class="cta rv" style="--k:0"><h2 class="gold">Sipariş İçin Bize Yazın</h2><p>Ürünler hakkında bilgi almak ve sipariş vermek için.</p><a class="btn fill" href="https://wa.me/905367840837" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="tel:+905551081684">0555 108 16 84</a></div>
+<div class="cta rv" style="--k:0"><h2 class="gold">Sipariş İçin Bize Yazın</h2><p>Ürünler hakkında bilgi almak ve sipariş vermek için.</p><a class="btn fill" href="https://wa.me/905367840837" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="tel:+905367840837">0536 784 08 37</a></div>
 </div>
 <button id="up" aria-label="Yukarı">↑</button>
 <footer>© <span id="y"></span> Sirius Cafe · <a href="https://www.instagram.com/siriuscoffee41/" target="_blank" rel="noopener">@siriuscoffee41</a></footer>
@@ -152,7 +152,7 @@ document.getElementById('ttl').innerHTML = Array.from("KENDİ ÜRETİMİMİZ").m
 document.getElementById('grid').innerHTML = URUNLER.map((u,k)=>{
   const msg = encodeURIComponent('Merhaba, '+u.ad+' hakkında bilgi almak istiyorum.');
   const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${u.birim}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">Fiyat için sorunuz</div>`;
-  return `<article class="card rv" style="--k:${k%3}"><span class="tag">${u.etiket}</span><div class="ico">${IKON[u.ikon]}</div><h3>${u.ad}</h3><p>${u.aciklama}</p>${fiyat}<a class="btn" href="https://wa.me/905551081684?text=${msg}" target="_blank" rel="noopener">Sipariş / Bilgi</a></article>`;
+  return `<article class="card rv" style="--k:${k%3}"><span class="tag">${u.etiket}</span><div class="ico">${IKON[u.ikon]}</div><h3>${u.ad}</h3><p>${u.aciklama}</p>${fiyat}<a class="btn" href="https://wa.me/905367840837?text=${msg}" target="_blank" rel="noopener">Sipariş / Bilgi</a></article>`;
 }).join('');
 document.getElementById('y').textContent = new Date().getFullYear();
 
