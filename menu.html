@@ -71,12 +71,26 @@ footer a{color:var(--gold)}
 .card:hover:before,.cat:hover:before{opacity:1}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes tw{0%,100%{opacity:.5;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(90deg)}}
+body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.leave{opacity:0;transition:opacity .28s ease}
+
+/* ---- ek efektler ---- */
+.hn{display:flex;gap:22px}
+.cat h2:after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:0;background:linear-gradient(90deg,var(--gold),transparent);transition:width 1.2s .3s ease}
+.cat.in h2:after{width:100%}
+.item:before{content:"";position:absolute;left:-8px;top:22%;height:56%;width:2px;background:var(--gold);transform:scaleY(0);transition:transform .3s}
+.item:hover:before{transform:scaleY(1)}
+.tabs button.on{box-shadow:0 0 18px rgba(214,179,112,.35)}
+.top h1:after{content:"";display:block;width:0;height:1px;margin:14px auto 0;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:ln 1.4s .6s ease forwards}
+@keyframes ln{to{width:120px}}
+.cat.promo{border-color:var(--gold2);background:linear-gradient(160deg,#18130a,#111 55%)}
+.cat.promo:after{content:"KAMPANYA";position:absolute;top:16px;right:-38px;transform:rotate(35deg);background:var(--gold);color:#0a0a0a;font-size:.56rem;letter-spacing:.22em;padding:3px 42px;font-weight:500}
+@media(max-width:560px){.hn{gap:12px}header .back{font-size:.62rem;letter-spacing:.12em}}
 </style>
 </head>
 <body>
 <div id="pg"></div><div id="glow"></div>
 <canvas id="stars"></canvas>
-<header><div class="wrap"><a class="logo" href="index.html"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg><span>SIRIUS</span></a><a class="back" href="index.html">← Ana Sayfa</a></div></header>
+<header><div class="wrap"><a class="logo" href="index.html"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg><span>SIRIUS</span></a><div class="hn"><a class="back" href="urunler.html">Ürünlerimiz</a><a class="back" href="index.html">← Ana Sayfa</a></div></div></header>
 <div class="wrap">
 <div class="top"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg><h1 class="gold">MENÜ</h1><p class="sub">Anın En Güzel Hali.</p></div>
 <input class="search" id="q" type="search" placeholder="Menüde ara…" aria-label="Menüde ara">
@@ -205,19 +219,19 @@ const MENU = [
     { ad: "Bardak Waffle", fiyat: 250 },
     { ad: "Tabak Waffle", fiyat: 400 },
   ]},
-  { kategori: "Small Burger Menüleri", not: "Patates + içecek (Cola veya Ayran) · Gerçek Et, Gerçek Lezzet", urunler: [
+  { kategori: "Small Burger Menüleri", ozel: true, not: "Patates + içecek (Cola veya Ayran) · Gerçek Et, Gerçek Lezzet", urunler: [
     { ad: "Small Anne", aciklama: "Anne burger, sirius sos, salatalık turşusu, domates, marul", secenek: [["Cola",245],["Ayran",230]] },
     { ad: "Small Cheese", aciklama: "Cheese burger, sirius sos, salatalık turşusu, domates, cheddar", secenek: [["Cola",250],["Ayran",240]] },
     { ad: "Small Angry", aciklama: "Angry burger, sirius sos, jalapeño turşusu, sriracha sos, acı yağ", secenek: [["Cola",265],["Ayran",255]] },
     { ad: "Small USA", aciklama: "USA burger, sirius sos, salatalık turşusu, cheddar, kültür & istiridye mantarı, trüf yağı", secenek: [["Cola",370],["Ayran",360]] },
   ]},
-  { kategori: "Pizza & İkili Menüler", not: "İkili menüler: 2 burger + patates + 1 içecek (Cola veya Ayran)", urunler: [
+  { kategori: "Pizza & İkili Menüler", ozel: true, not: "İkili menüler: 2 burger + patates + 1 içecek (Cola veya Ayran)", urunler: [
     { ad: "Pizza Menüsü", aciklama: "3 pizza + 1 L Cola · 4 peynirli hariç", fiyat: 780 },
     { ad: "Tavuk + Small Cheese", aciklama: "Tavuk burger + Cheese burger", fiyat: 500 },
     { ad: "Cheese + Small Anne", aciklama: "Cheese burger + Anne burger", fiyat: 440 },
     { ad: "Trüf + Tavuk", aciklama: "Trüf burger + Tavuk burger", fiyat: 550 },
   ]},
-  { kategori: "Kahve & Tatlı Menüleri", urunler: [
+  { kategori: "Kahve & Tatlı Menüleri", ozel: true, urunler: [
     { ad: "Kahve + San Sebastian", aciklama: "Seçilebilir kahve + San Sebastian", fiyat: 350 },
     { ad: "Kahve + Magnolia", aciklama: "Seçilebilir kahve + Magnolia", fiyat: 320 },
     { ad: "Kahve + Supangle", aciklama: "Kahve + Supangle", fiyat: 199 },
@@ -250,7 +264,7 @@ function render(filter){
   const html=MENU.filter(k=>!cur||k.kategori===cur).map(k=>{
     const us=k.urunler.filter(u=>lc(u.ad+' '+(u.aciklama||'')).includes(qs));
     if(!us.length)return '';
-    return `<section class="cat rv"><h2><i>✦</i>${k.kategori}</h2>`+us.map((u,j)=>`<div class="item" style="--k:${j}"><div><span class="n">${u.ad}</span>${u.aciklama?`<span class="d">${u.aciklama}</span>`:''}</div><span class="dots"></span><span class="p${u.secenek?' multi':''}">${pr(u)}</span></div>`).join('')+(k.not?`<p class="note">${k.not}</p>`:'')+`</section>`;
+    return `<section class="cat rv${k.ozel?' promo':''}"><h2><i>✦</i>${k.kategori}</h2>`+us.map((u,j)=>`<div class="item" style="--k:${j}"><div><span class="n">${u.ad}</span>${u.aciklama?`<span class="d">${u.aciklama}</span>`:''}</div><span class="dots"></span><span class="p${u.secenek?' multi':''}">${pr(u)}</span></div>`).join('')+(k.not?`<p class="note">${k.not}</p>`:'')+`</section>`;
   }).join('');
   menuEl.innerHTML=html?`<div class="cats">${html}</div>`:'<p class="empty">Aradığınız ürün bulunamadı.</p>';
   [...tabsEl.children].forEach(b=>{const on=(b.dataset.k||null)===cur;b.classList.toggle('on',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
@@ -260,6 +274,11 @@ tabsEl.innerHTML=`<button data-k="">Tümü</button>`+MENU.map(k=>`<button data-k
 tabsEl.onclick=e=>{if(e.target.tagName==='BUTTON'){render(e.target.dataset.k||null);scrollTo({top:document.getElementById('q').offsetTop-70,behavior:'smooth'})}};
 document.getElementById('q').oninput=e=>{qs=lc(e.target.value.trim());render()};
 render(null);
+
+/* sayfalar arası yumuşak geçiş */
+(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target||e.metaKey||e.ctrlKey||e.shiftKey)return;var h=a.getAttribute('href');if(!h||h.charAt(0)==='#'||/^(https?:|tel:|mailto:)/.test(h))return;e.preventDefault();document.body.classList.add('leave');setTimeout(function(){location.href=h},280)});
+addEventListener('pageshow',function(e){if(e.persisted)document.body.classList.remove('leave')})})();
 </script>
 </body>
 </html>

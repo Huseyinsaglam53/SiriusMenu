@@ -10,73 +10,188 @@
 :root{--bg:#0a0a0a;--card:#111;--gold:#d6b370;--gold2:#a8854a;--text:#efe7d6;--muted:#968e7b;--line:#2a2418}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Jost,Arial,sans-serif;font-weight:300;background:radial-gradient(ellipse at 50% 0,#1d1709 0,#0a0a0a 55%) fixed;color:var(--text);line-height:1.6;overflow-x:clip}
+body{font-family:Jost,Arial,sans-serif;font-weight:300;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:clip}
 h1,h2,h3,.logo{font-family:'Cormorant Garamond',Georgia,serif;font-weight:400}
 a{color:inherit;text-decoration:none}
-.wrap{max-width:1000px;margin:auto;padding:0 22px}
-.gold{background:linear-gradient(180deg,#f1d9a0,#b8924f);-webkit-background-clip:text;background-clip:text;color:transparent}
-header{position:sticky;top:0;z-index:40;background:rgba(10,10,10,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0}
+.wrap{max-width:1100px;margin:auto;padding:0 22px;position:relative;z-index:1}
+.gold{background:linear-gradient(180deg,#f1d9a0,#b8924f);background-size:100% 220%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shim 6s ease-in-out infinite}
+@keyframes shim{0%,100%{background-position:0 0}50%{background-position:0 100%}}
+@keyframes fi{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes tw{0%,100%{opacity:.45;transform:scale(.85) rotate(0)}50%{opacity:1;transform:scale(1.15) rotate(90deg)}}
+@keyframes mq{to{transform:translateX(-50%)}}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+#pg{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,#a8854a,#f1d9a0);z-index:60}
+#glow{position:fixed;left:0;top:0;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(214,179,112,.10),transparent 65%);pointer-events:none;z-index:0;opacity:0;transition:opacity .4s}
+
+header{position:sticky;top:0;z-index:40;background:rgba(10,10,10,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:14px 0;transition:.35s}
+body.sc header{padding:9px 0;box-shadow:0 6px 30px rgba(0,0,0,.6)}
 header .wrap{display:flex;justify-content:space-between;align-items:center}
 .logo{display:flex;align-items:center;gap:10px;font-size:1.3rem;letter-spacing:.3em;color:var(--gold)}
 .logo .mark{height:30px;width:auto}
-header .nav{display:flex;gap:22px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-header .nav a:hover{color:var(--gold)}
-.top{text-align:center;padding:60px 0 34px}
-h1{font-size:clamp(2.2rem,8vw,3.8rem);font-weight:300;letter-spacing:.22em;margin-right:-.22em;animation:fi 1s ease both}
-.sub{color:var(--muted);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.25rem;margin-top:6px;animation:fi 1s .2s ease both}
-.line{width:50px;height:1px;background:var(--gold);margin:22px auto 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:22px;padding-bottom:30px}
-.card{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);padding:30px 26px 24px;display:flex;flex-direction:column;transition:.3s;opacity:0;animation:fi .7s ease both;animation-delay:calc(var(--k)*.08s + .2s)}
-.card:hover{border-color:var(--gold2);transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,0,0,.6)}
-.card i{font-style:normal;color:var(--gold);font-size:.9rem;margin-bottom:10px}
-.card h3{color:var(--gold);font-size:1.6rem;line-height:1.2;margin-bottom:8px}
-.card p{color:var(--muted);font-size:.92rem;flex:1}
-.price{margin:18px 0 16px;padding-top:14px;border-top:1px solid var(--line);font-family:'Cormorant Garamond',serif;font-size:2rem;color:var(--gold);line-height:1}
-.price small{font-family:Jost,sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-left:6px}
-.price.ask{font-size:1.2rem;font-style:italic;color:var(--muted)}
-.btn{display:inline-block;text-align:center;padding:11px 20px;border:1px solid var(--gold);color:var(--gold);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;transition:.3s}
-.btn:hover{background:var(--gold);color:#0a0a0a}
+.nav{display:flex;gap:26px;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.nav a{position:relative;padding-bottom:3px;transition:color .3s}
+.nav a:after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:.3s}
+.nav a:hover{color:var(--gold)}.nav a:hover:after{width:100%}
+
+.hero{position:relative;text-align:center;padding:76px 0 54px}
+.halo{position:relative;display:inline-block;padding:26px;margin-bottom:8px}
+.halo:before,.halo:after{content:"";position:absolute;inset:0;border-radius:50%;border:1px dashed rgba(214,179,112,.35);animation:spin 40s linear infinite}
+.halo:after{inset:12px;border:1px dotted rgba(214,179,112,.5);animation-duration:26s;animation-direction:reverse}
+.halo .mark{display:block;width:46px;animation:fl 6s ease-in-out infinite;filter:drop-shadow(0 0 14px rgba(214,179,112,.35))}
+.eyebrow{display:flex;align-items:center;justify-content:center;gap:16px;color:var(--gold);letter-spacing:.5em;font-size:.72rem;text-transform:uppercase;max-width:420px;margin:0 auto 12px}
+.eyebrow:before,.eyebrow:after{content:"";flex:1;height:1px;background:var(--gold2);opacity:.6}
+h1{font-size:clamp(2.4rem,9vw,4.6rem);font-weight:300;letter-spacing:.2em;margin-right:-.2em;line-height:1.1}
+h1 .l{display:inline-block;animation:rise 1s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.2s + var(--i)*.05s)}
+h1 .sp{display:inline-block;width:.4em}
+@keyframes rise{from{opacity:0;transform:translateY(40px) scale(.92);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.sub{color:var(--muted);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.35rem;margin-top:12px;animation:fi 1s .9s ease both}
+
+.marq{overflow:hidden;border-block:1px solid var(--line);padding:15px 0;background:rgba(10,10,10,.7);position:relative;z-index:1;margin-bottom:56px}
+.mt{display:flex;width:max-content;animation:mq 36s linear infinite}
+.mt div{display:flex;gap:34px;padding-right:34px;color:var(--gold);letter-spacing:.35em;font-size:.72rem;white-space:nowrap}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:24px;perspective:1200px}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,#141109,#0e0e0e 60%);border:1px solid var(--line);padding:34px 28px 26px;display:flex;flex-direction:column;
+  transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease,border-color .3s,box-shadow .3s}
+.card:hover{border-color:var(--gold2);box-shadow:0 18px 50px rgba(0,0,0,.65),0 0 0 1px rgba(214,179,112,.15)}
+.card:before{content:"";position:absolute;inset:0;background:radial-gradient(280px circle at var(--mx,50%) var(--my,50%),rgba(214,179,112,.15),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover:before{opacity:1}
+.card:after{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .5s ease}
+.card:hover:after{transform:scaleX(1)}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease;transition-delay:calc(var(--k)*.08s)}
+.rv.in{opacity:1}
+.card.rv.in{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+.tag{position:absolute;top:18px;right:18px;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid var(--line);padding:4px 10px;background:rgba(10,10,10,.6)}
+.ico{width:54px;height:54px;margin-bottom:18px;color:var(--gold);transition:transform .5s}
+.ico svg{width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 8px rgba(214,179,112,.3))}
+.card:hover .ico{transform:translateY(-4px) rotate(-6deg) scale(1.08)}
+.card h3{color:var(--gold);font-size:1.65rem;line-height:1.2;margin-bottom:8px;position:relative}
+.card p{color:var(--muted);font-size:.92rem;flex:1;position:relative}
+.price{position:relative;margin:20px 0 18px;padding-top:16px;border-top:1px solid var(--line);font-family:'Cormorant Garamond',serif;font-size:2.3rem;color:var(--gold);line-height:1;transition:transform .3s;transform-origin:left}
+.card:hover .price{transform:scale(1.05)}
+.price small{font-family:Jost,sans-serif;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-left:8px}
+
+.btn{position:relative;overflow:hidden;display:inline-block;text-align:center;padding:12px 22px;border:1px solid var(--gold);color:var(--gold);font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;transition:.3s}
+.btn:hover{background:var(--gold);color:#0a0a0a;box-shadow:0 0 24px rgba(214,179,112,.4)}
 .btn.fill{background:var(--gold);color:#0a0a0a}
-.info{text-align:center;color:var(--muted);font-size:.85rem;padding:10px 0 50px}
-.cta{text-align:center;padding-bottom:20px}
-footer{text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.2em;padding:30px 0 36px;border-top:1px solid var(--line)}
+.btn:after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .6s}
+.btn:hover:after{left:130%}
+.card .btn{position:relative}
+
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin:64px 0 0;border:1px solid var(--line);background:rgba(17,17,17,.7)}
+.why div{padding:30px 22px;text-align:center;border-right:1px solid var(--line)}
+.why div:last-child{border-right:0}
+.why i{display:block;font-style:normal;color:var(--gold);animation:tw 3.2s ease-in-out infinite;margin-bottom:8px}
+.why b{display:block;font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.3rem;color:var(--gold);letter-spacing:.06em}
+.why span{color:var(--muted);font-size:.85rem}
+.info{text-align:center;color:var(--muted);font-size:.85rem;margin-top:34px}
+.cta{position:relative;text-align:center;margin:44px 0 70px;padding:48px 22px;border:1px solid var(--line);background:radial-gradient(circle at 50% 0,rgba(214,179,112,.12),transparent 70%),var(--card)}
+.cta h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:300;letter-spacing:.14em;margin-bottom:8px}
+.cta p{color:var(--muted);margin-bottom:24px}
+.cta .btn{margin:6px}
+footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.2em;padding:30px 0 36px;border-top:1px solid var(--line)}
 footer a{color:var(--gold)}
-@keyframes fi{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card{opacity:1}}
-@media(max-width:560px){header .nav{gap:14px;font-size:.62rem}.logo span{display:none}}
+#up{position:fixed;right:18px;bottom:18px;z-index:45;width:44px;height:44px;border:1px solid var(--gold);background:rgba(10,10,10,.85);color:var(--gold);cursor:pointer;opacity:0;pointer-events:none;transition:.3s;border-radius:0;-webkit-appearance:none;appearance:none;padding:0}
+#up.show{opacity:1;pointer-events:auto}#up:hover{background:var(--gold);color:#0a0a0a}
+@media(max-width:700px){.why div{border-right:0;border-bottom:1px solid var(--line)}.why div:last-child{border-bottom:0}}
+@media(max-width:560px){.nav{gap:14px;font-size:.62rem}.logo span{display:none}.hero{padding-top:52px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.leave{opacity:0;transition:opacity .28s ease}
 </style>
 </head>
 <body>
+<div id="pg"></div><div id="glow"></div><canvas id="stars"></canvas>
 <header><div class="wrap">
 <a class="logo" href="index.html"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg><span>SIRIUS</span></a>
-<div class="nav"><a href="menu.html">Menü</a><a href="index.html">← Ana Sayfa</a></div>
+<nav class="nav"><a href="menu.html">Menü</a><a href="index.html">← Ana Sayfa</a></nav>
 </div></header>
 
+<div class="hero"><div class="wrap">
+<div class="halo"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg></div>
+<div class="eyebrow">Sirius</div>
+<h1 class="gold" id="ttl" aria-label="Kendi Üretimimiz"></h1>
+<p class="sub">Doğal, katkısız, emekle yetişen lezzetler.</p>
+</div></div>
+
+<div class="marq" aria-hidden="true"><div class="mt"><div><span>DOĞAL BAL</span><span>✦</span><span>ZEYTİNYAĞI</span><span>✦</span><span>SAMANLI ZEYTİN</span><span>✦</span><span>İNCİR</span><span>✦</span><span>ERİK</span><span>✦</span><span>KENDİ ÜRETİMİMİZ</span><span>✦</span></div><div><span>DOĞAL BAL</span><span>✦</span><span>ZEYTİNYAĞI</span><span>✦</span><span>SAMANLI ZEYTİN</span><span>✦</span><span>İNCİR</span><span>✦</span><span>ERİK</span><span>✦</span><span>KENDİ ÜRETİMİMİZ</span><span>✦</span></div></div></div>
+
 <div class="wrap">
-<div class="top"><h1 class="gold">KENDİ ÜRETİMİMİZ</h1><p class="sub">Doğal, katkısız, emekle yetişen lezzetler.</p><div class="line"></div></div>
 <div class="grid" id="grid"></div>
-<p class="info">Fiyatlar kilogram veya litre başınadır. Stok ve sipariş için bize ulaşın.</p>
-<div class="cta"><a class="btn fill" href="https://wa.me/905551081684" target="_blank" rel="noopener">WhatsApp ile Sipariş Ver</a></div>
+<p class="info">Fiyatlar kilogram veya litre başınadır. Stok durumu için bize ulaşın.</p>
+<div class="why">
+<div><i>✦</i><b>Kendi Üretimimiz</b><span>Üreticiden doğrudan sofranıza</span></div>
+<div><i>✦</i><b>Doğal</b><span>Özenle seçilmiş, doğal ürünler</span></div>
+<div><i>✦</i><b>Taze</b><span>Mevsiminde, sınırlı miktarda</span></div>
 </div>
+<div class="cta rv" style="--k:0"><h2 class="gold">Sipariş İçin Bize Yazın</h2><p>Ürünler hakkında bilgi almak ve sipariş vermek için.</p><a class="btn fill" href="https://wa.me/905551081684" target="_blank" rel="noopener">WhatsApp</a><a class="btn" href="tel:+905551081684">0555 108 16 84</a></div>
+</div>
+<button id="up" aria-label="Yukarı">↑</button>
 <footer>© <span id="y"></span> Sirius Cafe · <a href="https://www.instagram.com/siriuscoffee41/" target="_blank" rel="noopener">@siriuscoffee41</a></footer>
+
 <script>
-/* Fiyat veya ürün değiştirmek için sadece bu listeyi düzenle.
-   fiyat yoksa "Fiyat için sorunuz" yazar. */
+/* Ürün veya fiyat değiştirmek için sadece bu listeyi düzenle. fiyat yoksa "Fiyat için sorunuz" yazar. */
+const IKON = {
+  bal:'<svg viewBox="0 0 48 48"><path d="M24 6l8 4.6v9.2L24 24.4l-8-4.6v-9.2z"/><path d="M12 22l8 4.6v9.2L12 40.4 4 35.8v-9.2z"/><path d="M36 22l8 4.6v9.2L36 40.4l-8-4.6v-9.2z"/></svg>',
+  yag:'<svg viewBox="0 0 48 48"><path d="M20 4h8v7l4 6v25a3 3 0 0 1-3 3H19a3 3 0 0 1-3-3V17l4-6z"/><path d="M16 26h16M16 34h16"/><path d="M24 15v3"/></svg>',
+  zeytin:'<svg viewBox="0 0 48 48"><ellipse cx="22" cy="28" rx="12" ry="14" transform="rotate(25 22 28)"/><path d="M30 14c3-5 9-8 13-7-1 5-5 9-11 10"/><path d="M17 24c1-3 3-5 6-6"/></svg>',
+  incir:'<svg viewBox="0 0 48 48"><path d="M24 12c10 0 15 9 15 17 0 8-7 13-15 13S9 37 9 29c0-8 5-17 15-17z"/><path d="M24 12V6M20 6h8"/><path d="M24 20v16M17 24c1 5 1 9 4 12M31 24c-1 5-1 9-4 12"/></svg>',
+  erik:'<svg viewBox="0 0 48 48"><circle cx="24" cy="28" r="15"/><path d="M24 13c0 8 0 22 0 30"/><path d="M24 13c1-5 5-8 10-8-1 5-4 8-10 8z"/></svg>'
+};
 const URUNLER = [
-  { ad: "İlaçlık Doğal Bal", aciklama: "Şeker katılmamış, doğal bal.", fiyat: 2500, birim: "kg" },
-  { ad: "Doğal Zeytinyağı", aciklama: "Ata eşek zeytininden elde edilen doğal zeytinyağı.", fiyat: 1500, birim: "litre" },
-  { ad: "Duble Doğal Samanlı Zeytin", aciklama: "Geleneksel yöntemle, samanlı doğal zeytin.", fiyat: 230, birim: "kg" },
-  { ad: "Eşek Zeytini", aciklama: "Kendi bahçemizden doğal zeytin.", birim: "kg" },
-  { ad: "Doğal Ata Ağacından İncir", aciklama: "Ata ağacından toplanan doğal incir.", fiyat: 180, birim: "kg" },
-  { ad: "Premium Erik", aciklama: "Özenle seçilmiş premium erik.", fiyat: 170, birim: "kg" },
+  { ad:"İlaçlık Doğal Bal", etiket:"Bal", ikon:"bal", aciklama:"Şeker katılmamış, doğal bal.", fiyat:2500, birim:"kg" },
+  { ad:"Doğal Zeytinyağı", etiket:"Zeytinyağı", ikon:"yag", aciklama:"Ata eşek zeytininden elde edilen doğal zeytinyağı.", fiyat:1500, birim:"litre" },
+  { ad:"Duble Doğal Samanlı Zeytin", etiket:"Zeytin", ikon:"zeytin", aciklama:"Geleneksel yöntemle hazırlanan samanlı doğal zeytin.", fiyat:230, birim:"kg" },
+  { ad:"Eşek Zeytini", etiket:"Zeytin", ikon:"zeytin", aciklama:"Kendi bahçemizden doğal zeytin.", fiyat:250, birim:"kg" },
+  { ad:"Doğal Ata Ağacından İncir", etiket:"İncir", ikon:"incir", aciklama:"Ata ağacından toplanan doğal incir.", fiyat:180, birim:"kg" },
+  { ad:"Premium Erik", etiket:"Erik", ikon:"erik", aciklama:"Özenle seçilmiş premium erik.", fiyat:170, birim:"kg" },
 ];
-const fmt = n => n.toLocaleString('tr-TR') + ' ₺';
+const fmt = n => n.toLocaleString('tr-TR');
+document.getElementById('ttl').innerHTML = Array.from("KENDİ ÜRETİMİMİZ").map((c,i)=>c===' '?'<span class="sp"></span>':`<span class="l" style="--i:${i}">${c}</span>`).join('');
 document.getElementById('grid').innerHTML = URUNLER.map((u,k)=>{
-  const msg = encodeURIComponent('Merhaba, ' + u.ad + ' hakkında bilgi almak istiyorum.');
-  const fiyat = u.fiyat ? `<div class="price">${fmt(u.fiyat)}<small>/ ${u.birim}</small></div>` : `<div class="price ask">Fiyat için sorunuz</div>`;
-  return `<div class="card" style="--k:${k}"><i>✦</i><h3>${u.ad}</h3><p>${u.aciklama}</p>${fiyat}<a class="btn" href="https://wa.me/905551081684?text=${msg}" target="_blank" rel="noopener">Sipariş / Bilgi</a></div>`;
+  const msg = encodeURIComponent('Merhaba, '+u.ad+' hakkında bilgi almak istiyorum.');
+  const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${u.birim}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">Fiyat için sorunuz</div>`;
+  return `<article class="card rv" style="--k:${k%3}"><span class="tag">${u.etiket}</span><div class="ico">${IKON[u.ikon]}</div><h3>${u.ad}</h3><p>${u.aciklama}</p>${fiyat}<a class="btn" href="https://wa.me/905551081684?text=${msg}" target="_blank" rel="noopener">Sipariş / Bilgi</a></article>`;
 }).join('');
 document.getElementById('y').textContent = new Date().getFullYear();
+
+/* görünürlük + fiyat sayacı */
+const rm = matchMedia('(prefers-reduced-motion:reduce)').matches;
+function count(el){const v=+el.dataset.v;if(rm){el.textContent=fmt(v);return}const t0=performance.now(),d=1100;(function s(t){const p=Math.min((t-t0)/d,1),e=1-Math.pow(1-p,3);el.textContent=fmt(Math.round(v*e));if(p<1)requestAnimationFrame(s)})(t0)}
+const io = new IntersectionObserver(es=>es.forEach(i=>{if(i.isIntersecting){i.target.classList.add('in');i.target.querySelectorAll('.cnt').forEach(count);io.unobserve(i.target)}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(e=>io.observe(e));
+
+/* kart efektleri: ışık takibi + hafif 3D eğim (sadece fare olan cihazlarda) */
+if(matchMedia('(hover:hover)').matches){
+  const gl=document.getElementById('glow');
+  addEventListener('mousemove',e=>{gl.style.transform=`translate(${e.clientX-260}px,${e.clientY-260}px)`;gl.style.opacity=1});
+  document.querySelectorAll('.card').forEach(c=>{
+    c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+      c.style.setProperty('--mx',x+'px');c.style.setProperty('--my',y+'px');
+      if(!rm){c.style.setProperty('--ry',((x/r.width-.5)*6)+'deg');c.style.setProperty('--rx',((.5-y/r.height)*6)+'deg')}});
+    c.addEventListener('mouseleave',()=>{c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')});
+  });
+}
+
+/* kaydırma: ilerleme çubuğu, başlık, yukarı butonu */
+const pg=document.getElementById('pg'),up=document.getElementById('up');
+addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;pg.style.width=(h>0?scrollY/h*100:0)+'%';document.body.classList.toggle('sc',scrollY>40);up.classList.toggle('show',scrollY>500)},{passive:true});
+up.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+
+/* yıldızlı arka plan */
+(function(){const c=document.getElementById('stars'),x=c.getContext('2d');let S=[],M=[],W,H;
+function sz(){W=c.width=innerWidth;H=c.height=innerHeight;S=[];for(let i=0;i<Math.min(120,W*H/13000);i++)S.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.2,p:Math.random()*6.28,v:Math.random()*.02+.005})}
+if(!rm)setInterval(()=>{if(!document.hidden&&Math.random()<.65)M.push({x:W*(.35+Math.random()*.65),y:Math.random()*H*.35,v:10+Math.random()*5})},4200);
+function d(){x.clearRect(0,0,W,H);S.forEach(s=>{s.p+=s.v;x.globalAlpha=.25+.55*Math.abs(Math.sin(s.p));x.fillStyle='#e9cf94';x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()});
+M=M.filter(m=>{m.x-=m.v;m.y+=m.v*.55;const g=x.createLinearGradient(m.x,m.y,m.x+m.v*10,m.y-m.v*5.5);g.addColorStop(0,'rgba(245,220,160,.95)');g.addColorStop(1,'rgba(245,220,160,0)');x.globalAlpha=1;x.strokeStyle=g;x.lineWidth=1.4;x.beginPath();x.moveTo(m.x,m.y);x.lineTo(m.x+m.v*10,m.y-m.v*5.5);x.stroke();return m.x>-250&&m.y<H+60});
+if(!rm)requestAnimationFrame(d)}
+addEventListener('resize',sz);sz();d()})();
+
+/* sayfalar arası yumuşak geçiş */
+(function(){if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target||e.metaKey||e.ctrlKey||e.shiftKey)return;var h=a.getAttribute('href');if(!h||h.charAt(0)==='#'||/^(https?:|tel:|mailto:)/.test(h))return;e.preventDefault();document.body.classList.add('leave');setTimeout(function(){location.href=h},280)});
+addEventListener('pageshow',function(e){if(e.persisted)document.body.classList.remove('leave')})})();
 </script>
 </body>
 </html>
