@@ -85,7 +85,12 @@ body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.l
 .cat.promo{border-color:var(--gold2);background:linear-gradient(160deg,#18130a,#111 55%)}
 .cat.promo:after{content:"KAMPANYA";position:absolute;top:16px;right:-38px;transform:rotate(35deg);background:var(--gold);color:#0a0a0a;font-size:.56rem;letter-spacing:.22em;padding:3px 42px;font-weight:500}
 @media(max-width:560px){.hn{gap:12px}header .back{font-size:.62rem;letter-spacing:.12em}}
+.al{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:6px}
+.al em{font-style:normal;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.al b{font-weight:400;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);border:1px solid var(--line);padding:1px 7px}
+html[lang=en] .cat.promo:after{content:"PROMO"}
 </style>
+<script src="dil.js"></script><script>window.t=window.t||function(s){return s};window.td=window.td||window.t;window.LANG=window.LANG||'tr'</script>
 </head>
 <body>
 <div id="pg"></div><div id="glow"></div>
@@ -104,7 +109,7 @@ const ZAM_ORANI = 0;      // % zam (0 = zamsız, menüdeki fiyatlar)
 const YUVARLA   = 0.01;
 const zamli = f => Number((Math.round(f*(1+ZAM_ORANI/100)/YUVARLA)*YUVARLA).toFixed(2));
 const fmt = n => (Number.isInteger(n)?String(n):n.toLocaleString('tr-TR',{minimumFractionDigits:2,maximumFractionDigits:2})) + ' ₺';
-const pr = u => u.secenek ? u.secenek.map(s=>`<small>${s[0]}</small>${fmt(zamli(s[1]))}`).join('<br>') : (typeof u.fiyat==='string' ? u.fiyat+' ₺' : fmt(zamli(u.fiyat)));
+const pr = u => u.secenek ? u.secenek.map(s=>`<small>${t(s[0])}</small>${fmt(zamli(s[1]))}`).join('<br>') : (typeof u.fiyat==='string' ? u.fiyat+' ₺' : fmt(zamli(u.fiyat)));
 /* ===== MENÜ — fiyatlar menüdeki gibi (zamsız) =====
    fiyat: sayı ya da "90-110" gibi yazı olabilir. aciklama ve not isteğe bağlı. */
 const MENU = [
@@ -238,6 +243,20 @@ const MENU = [
   ]},
 ];
 /* ================================================== */
+/* ALERJENLER: g=Gluten s=Süt y=Yumurta h=Hardal u=Susam k=Kabuklu yemiş o=Soya · "?"=günlük değişir · Listede olmayan ürün = alerjen bildirilmemiş. MUTFAKTAKİ GERÇEK REÇETELERE GÖRE KONTROL EDİP DÜZELTİN. */
+const AL={g:'Gluten',s:'Süt',y:'Yumurta',h:'Hardal',u:'Susam',k:'Kabuklu yemiş',o:'Soya'};
+const ALG={"Menengiç Kahvesi":"sk","Dibek Kahvesi":"s","Cappuccino":"s","Cappuccino Brûlée":"s","Latte":"s","Latte Macchiato":"s","Mocha":"so","White Chocolate Mocha":"so","Espresso Macchiato":"s","Flat White":"s","Caramel Latte":"so","Cortado":"s","Salep":"s","Sıcak Çikolata":"so",
+"Milkshake":"sg","Ice Latte":"s","Ice Mocha":"so","Ice White Mocha":"so","Frappe":"s","Ayran":"s",
+"U.S.A. Burger":"gsyhu","Trüf Burger":"gsyhu","Kibrit Burger":"gyhu","Angry Burger":"gyhu","Cheese Burger":"gsyhu","Anne Burger":"gyhu","Tavuk Burger":"gyhu",
+"Dört Peynirli Pizza":"gs","Mantarlı Pizza":"gs","Karışık Pizza":"gs","Pepperoni Pizza":"gs","Mexican Pizza":"gs","Margarita Pizza":"gs",
+"Kaşarlı Gözleme":"gs","Sucuk Kaşarlı Gözleme":"gs","Patatesli Gözleme":"g","Peynirli Gözleme":"gs","Kaşarlı Tost":"gs","Karışık Tost":"gs","Çift Kaşarlı Tost":"gs","Sucuklu Tost":"gs",
+"Porsiyon Patates Çeşitleri":"s","Soğan Halkası":"gy","Patates Kroket":"gys","Cheese Sticks":"gys",
+"Fettuccine Alfredo":"gys","Pesto Soslu Fettuccine":"gysk","Mantarlı Kremalı Fettuccine":"gys","Peynirli Ravioli":"gys","Günün Çorbası":"?",
+"San Sebastian":"gsy","Lotus Cup":"gso","Spoonful":"gsy","Cheesecake":"gsy","Tiramisu":"gsy","Dökme Profiterol":"gsy","Magnolya":"gs","Fırında Sütlaç":"s","Supangle":"sy","Bardak Waffle":"gsyo","Tabak Waffle":"gsyo",
+"Small Anne":"gyhus","Small Cheese":"gyhus","Small Angry":"gyhus","Small USA":"gyhus",
+"Pizza Menüsü":"gs","Tavuk + Small Cheese":"gsyhu","Cheese + Small Anne":"gsyhu","Trüf + Tavuk":"gsyhu",
+"Kahve + San Sebastian":"gsy","Kahve + Magnolia":"gs","Kahve + Supangle":"sy"};
+const alg=n=>{const a=ALG[n];if(!a)return '';return `<span class="al"><em>${t('Alerjen:')}</em>`+(a==='?'?`<b>${t('Günlük değişir, sorunuz')}</b>`:[...a].map(c=>`<b>${t(AL[c])}</b>`).join(''))+`</span>`};
 var up=document.getElementById('up');
 addEventListener('scroll',function(){if(up)up.classList.toggle('show',scrollY>500)});
 if(up)up.onclick=function(){scrollTo({top:0,behavior:'smooth'})};
@@ -262,15 +281,15 @@ const lc=t=>t.toLocaleLowerCase('tr');
 function render(filter){
   if(filter!==undefined)cur=filter;
   const html=MENU.filter(k=>!cur||k.kategori===cur).map(k=>{
-    const us=k.urunler.filter(u=>lc(u.ad+' '+(u.aciklama||'')).includes(qs));
+    const us=k.urunler.filter(u=>lc(u.ad+' '+t(u.ad)+' '+(u.aciklama||'')+' '+td(u.aciklama||'')).includes(qs));
     if(!us.length)return '';
-    return `<section class="cat rv${k.ozel?' promo':''}"><h2><i>✦</i>${k.kategori}</h2>`+us.map((u,j)=>`<div class="item" style="--k:${j}"><div><span class="n">${u.ad}</span>${u.aciklama?`<span class="d">${u.aciklama}</span>`:''}</div><span class="dots"></span><span class="p${u.secenek?' multi':''}">${pr(u)}</span></div>`).join('')+(k.not?`<p class="note">${k.not}</p>`:'')+`</section>`;
+    return `<section class="cat rv${k.ozel?' promo':''}"><h2><i>✦</i>${t(k.kategori)}</h2>`+us.map((u,j)=>`<div class="item" style="--k:${j}"><div><span class="n">${t(u.ad)}</span>${u.aciklama?`<span class="d">${td(u.aciklama)}</span>`:''}${alg(u.ad)}</div><span class="dots"></span><span class="p${u.secenek?' multi':''}">${pr(u)}</span></div>`).join('')+(k.not?`<p class="note">${t(k.not)}</p>`:'')+`</section>`;
   }).join('');
-  menuEl.innerHTML=html?`<div class="cats">${html}</div>`:'<p class="empty">Aradığınız ürün bulunamadı.</p>';
+  menuEl.innerHTML=html?`<div class="cats">${html}</div>`:`<p class="empty">${t('Aradığınız ürün bulunamadı.')}</p>`;
   [...tabsEl.children].forEach(b=>{const on=(b.dataset.k||null)===cur;b.classList.toggle('on',on);if(on&&b.scrollIntoView)b.scrollIntoView({inline:'center',block:'nearest'})});
   obs();
 }
-tabsEl.innerHTML=`<button data-k="">Tümü</button>`+MENU.map(k=>`<button data-k="${k.kategori}">${k.kategori}</button>`).join('');
+tabsEl.innerHTML=`<button data-k="">${t('Tümü')}</button>`+MENU.map(k=>`<button data-k="${k.kategori}">${t(k.kategori)}</button>`).join('');
 tabsEl.onclick=e=>{if(e.target.tagName==='BUTTON'){render(e.target.dataset.k||null);scrollTo({top:document.getElementById('q').offsetTop-70,behavior:'smooth'})}};
 document.getElementById('q').oninput=e=>{qs=lc(e.target.value.trim());render()};
 render(null);

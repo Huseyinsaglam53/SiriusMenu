@@ -100,6 +100,7 @@ footer a{color:var(--gold)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
 body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.leave{opacity:0;transition:opacity .28s ease}
 </style>
+<script src="dil.js"></script><script>window.t=window.t||function(s){return s};window.td=window.td||window.t;window.LANG=window.LANG||'tr'</script>
 </head>
 <body>
 <div id="pg"></div><div id="glow"></div><canvas id="stars"></canvas>
@@ -148,11 +149,11 @@ const URUNLER = [
   { ad:"Premium Erik", etiket:"Erik", ikon:"erik", aciklama:"Özenle seçilmiş premium erik.", fiyat:170, birim:"kg" },
 ];
 const fmt = n => n.toLocaleString('tr-TR');
-document.getElementById('ttl').innerHTML = Array.from("KENDİ ÜRETİMİMİZ").map((c,i)=>c===' '?'<span class="sp"></span>':`<span class="l" style="--i:${i}">${c}</span>`).join('');
+document.getElementById('ttl').innerHTML = Array.from(t("KENDİ ÜRETİMİMİZ")).map((c,i)=>c===' '?'<span class="sp"></span>':`<span class="l" style="--i:${i}">${c}</span>`).join('');
 document.getElementById('grid').innerHTML = URUNLER.map((u,k)=>{
-  const msg = encodeURIComponent('Merhaba, '+u.ad+' hakkında bilgi almak istiyorum.');
-  const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${u.birim}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">Fiyat için sorunuz</div>`;
-  return `<article class="card rv" style="--k:${k%3}"><span class="tag">${u.etiket}</span><div class="ico">${IKON[u.ikon]}</div><h3>${u.ad}</h3><p>${u.aciklama}</p>${fiyat}<a class="btn" href="https://wa.me/905367840837?text=${msg}" target="_blank" rel="noopener">Sipariş / Bilgi</a></article>`;
+  const msg = encodeURIComponent(LANG==='en'?'Hello, I would like information about '+t(u.ad)+'.':'Merhaba, '+u.ad+' hakkında bilgi almak istiyorum.');
+  const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${t(u.birim)}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">Fiyat için sorunuz</div>`;
+  return `<article class="card rv" style="--k:${k%3}"><span class="tag">${t(u.etiket)}</span><div class="ico">${IKON[u.ikon]}</div><h3>${t(u.ad)}</h3><p>${t(u.aciklama)}</p>${fiyat}<a class="btn" href="https://wa.me/905367840837?text=${msg}" target="_blank" rel="noopener">${t('Sipariş / Bilgi')}</a></article>`;
 }).join('');
 document.getElementById('y').textContent = new Date().getFullYear();
 
