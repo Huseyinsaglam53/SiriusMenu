@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kendi Üretimimiz | Sirius Cafe</title>
 <meta name="description" content="Sirius Cafe kendi üretimi doğal bal, zeytin, zeytinyağı, incir ve erik.">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="apple-touch-icon" href="og-image.png"><meta name="theme-color" content="#0a0a0a"><link rel="canonical" href="https://ALANADIN.com/urunler.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Sirius Cafe"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="Kendi Üretimimiz | Sirius Cafe"><meta property="og:description" content="Sirius Cafe kendi üretimi doğal bal, zeytin, zeytinyağı, incir ve erik."><meta property="og:url" content="https://ALANADIN.com/urunler.html"><meta property="og:image" content="https://ALANADIN.com/og-image.png"><meta name="twitter:card" content="summary_large_image"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0a0a;--card:#111;--gold:#d6b370;--gold2:#a8854a;--text:#efe7d6;--muted:#968e7b;--line:#2a2418}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -105,12 +105,12 @@ body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.l
 <body>
 <div id="pg"></div><div id="glow"></div><canvas id="stars"></canvas>
 <header><div class="wrap">
-<a class="logo" href="index.html"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg><span>SIRIUS</span></a>
+<a class="logo" href="index.html"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g1)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g1)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g1)"/></svg><span>SIRIUS</span></a>
 <nav class="nav"><a href="menu.html">Menü</a><a href="index.html">← Ana Sayfa</a></nav>
 </div></header>
 
 <div class="hero"><div class="wrap">
-<div class="halo"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g)"/></svg></div>
+<div class="halo"><svg class="mark" viewBox="0 0 120 150" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f1d9a0"/><stop offset="1" stop-color="#b8924f"/></linearGradient></defs><path d="M18 102A42 42 0 1 1 102 102" fill="none" stroke="url(#g2)" stroke-width="1.6"/><path d="M60 38C61 70 66 83 98 87C66 91 61 104 60 142C59 104 54 91 22 87C54 83 59 70 60 38Z" fill="url(#g2)"/><path d="M60 3Q61 11 69 12Q61 13 60 22Q59 13 51 12Q59 11 60 3Z" fill="url(#g2)"/></svg></div>
 <div class="eyebrow">Sirius</div>
 <h1 class="gold" id="ttl" aria-label="Kendi Üretimimiz"></h1>
 <p class="sub">Doğal, katkısız, emekle yetişen lezzetler.</p>
@@ -152,7 +152,7 @@ const fmt = n => n.toLocaleString('tr-TR');
 document.getElementById('ttl').innerHTML = Array.from(t("KENDİ ÜRETİMİMİZ")).map((c,i)=>c===' '?'<span class="sp"></span>':`<span class="l" style="--i:${i}">${c}</span>`).join('');
 document.getElementById('grid').innerHTML = URUNLER.map((u,k)=>{
   const msg = encodeURIComponent(LANG==='en'?'Hello, I would like information about '+t(u.ad)+'.':'Merhaba, '+u.ad+' hakkında bilgi almak istiyorum.');
-  const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${t(u.birim)}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">Fiyat için sorunuz</div>`;
+  const fiyat = u.fiyat ? `<div class="price"><span class="cnt" data-v="${u.fiyat}">0</span> ₺<small>/ ${t(u.birim)}</small></div>` : `<div class="price" style="font-size:1.3rem;font-style:italic;color:var(--muted)">${t("Fiyat için sorunuz")}</div>`;
   return `<article class="card rv" style="--k:${k%3}"><span class="tag">${t(u.etiket)}</span><div class="ico">${IKON[u.ikon]}</div><h3>${t(u.ad)}</h3><p>${t(u.aciklama)}</p>${fiyat}<a class="btn" href="https://wa.me/905367840837?text=${msg}" target="_blank" rel="noopener">${t('Sipariş / Bilgi')}</a></article>`;
 }).join('');
 document.getElementById('y').textContent = new Date().getFullYear();
