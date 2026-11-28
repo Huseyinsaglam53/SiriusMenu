@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Menü | Sirius Cafe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#0a0a0a"><link rel="canonical" href="https://siriusmenu.vercel.app/menu.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Sirius Cafe"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="Menü | Sirius Cafe"><meta property="og:description" content="Sirius Cafe menüsü: kahveler, burger, pizza, makarna, tatlılar ve özel menüler."><meta property="og:url" content="https://siriusmenu.vercel.app/menu.html"><meta property="og:image" content="https://siriusmenu.vercel.app/og-image.png"><meta name="twitter:card" content="summary_large_image"><meta name="description" content="Sirius Cafe menüsü: kahveler, burger, pizza, makarna, tatlılar ve özel menüler.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#07111d"><link rel="canonical" href="https://siriusmenu.vercel.app/menu.html"><meta property="og:type" content="website"><meta property="og:site_name" content="Sirius Cafe"><meta property="og:locale" content="tr_TR"><meta property="og:title" content="Menü | Sirius Cafe"><meta property="og:description" content="Sirius Cafe menüsü: kahveler, burger, pizza, makarna, tatlılar ve özel menüler."><meta property="og:url" content="https://siriusmenu.vercel.app/menu.html"><meta property="og:image" content="https://siriusmenu.vercel.app/og-image.png"><meta name="twitter:card" content="summary_large_image"><meta name="description" content="Sirius Cafe menüsü: kahveler, burger, pizza, makarna, tatlılar ve özel menüler.">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0a0a0a;--card:#111;--gold:#d6b370;--gold2:#a8854a;--text:#efe7d6;--muted:#968e7b;--line:#2a2418}
@@ -89,6 +89,17 @@ body{animation:pgin .7s ease}@keyframes pgin{from{opacity:0}to{opacity:1}}body.l
 .al em{font-style:normal;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
 .al b{font-weight:400;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);border:1px solid var(--line);padding:1px 7px}
 html[lang=en] .cat.promo:after{content:"PROMO"}
+
+/* ===== KIŞ TEMASI BAŞLANGIÇ ===== */
+:root{--bg:#07111d;--card:#0d1a2a;--line:#1f3650;--muted:#9db0c4;--ice:#bfe3ff}
+#snow{position:fixed;inset:0;z-index:9;pointer-events:none}
+@media(prefers-reduced-motion:reduce){#snow{display:none}}
+header,.tabs{background:rgba(7,17,29,.93)}
+.top{background:radial-gradient(ellipse at 50% 40%,rgba(150,205,255,.18),transparent 70%)}
+.cat{border-top:3px solid #eaf6ff;border-radius:14px}
+.cat.promo{background:linear-gradient(160deg,#143049,#0d1a2a 55%)}
+.item .dots{border-bottom-color:#2c4a6b}
+/* ===== KIŞ TEMASI BİTİŞ ===== */
 </style>
 <script>window.t=window.t||function(s){return s};window.td=window.td||window.t;window.LANG=window.LANG||'tr'</script>
 </head>
@@ -300,5 +311,11 @@ render(null);
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target||e.metaKey||e.ctrlKey||e.shiftKey)return;var h=a.getAttribute('href');if(!h||h.charAt(0)==='#'||/^(https?:|tel:|mailto:)/.test(h))return;e.preventDefault();document.body.classList.add('leave');setTimeout(function(){location.href=h},280)});
 addEventListener('pageshow',function(e){if(e.persisted)document.body.classList.remove('leave')})})();
 </script>
+<!-- KAR YAĞIŞI -->
+<canvas id="snow" aria-hidden="true"></canvas>
+<script>(function(){var c=document.getElementById('snow');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;var x=c.getContext('2d'),F=[],W,H;
+function sz(){W=c.width=innerWidth;H=c.height=innerHeight;F=[];for(var i=0,n=Math.min(130,W/9+25);i<n;i++)F.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2.2+.7,v:Math.random()*.8+.35,p:Math.random()*6.28})}
+function d(){x.clearRect(0,0,W,H);x.fillStyle='#fff';F.forEach(function(f){f.p+=.012;f.y+=f.v;f.x+=Math.sin(f.p)*.4;if(f.y>H+4){f.y=-4;f.x=Math.random()*W}x.globalAlpha=.3+f.r/6;x.beginPath();x.arc(f.x,f.y,f.r,0,6.29);x.fill()});requestAnimationFrame(d)}
+addEventListener('resize',sz);sz();d()})();</script>
 </body>
 </html>
